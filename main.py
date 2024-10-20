@@ -9,6 +9,7 @@ import re
 from google.cloud import speech_v1p1beta1 as speech
 from google.oauth2 import service_account
 import shutil
+import streamlit as st
 
 class Word:
     def __init__(self, value: str, start_time, end_time) -> None:
@@ -45,7 +46,8 @@ class AIaudioGen:
         self.video = VideoFileClip(video_path)
         self.og_audio = self.video.audio
 
-        credentials = service_account.Credentials.from_service_account_file(path_to_credentials)
+        google_creds = st.secrets['GOOGLE_CREDENTIALS']['creds']
+        credentials = service_account.Credentials.from_service_account_info(google_creds)
         self.stt_client = speech.SpeechClient(credentials=credentials)
         self.voice_engine = pyttsx3.init()
 
@@ -67,8 +69,8 @@ class AIaudioGen:
         Creates the opeanAI client and sets the prompt for it
         """        
         client = AzureOpenAI(
-        azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"), 
-        api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
+        azure_endpoint = st.secrets['AZURE_CREDENTIALS']['AZURE_OPENAI_ENDPOINT'], 
+        api_key= st.secrets['AZURE_CREDENTIALS']["AZURE_OPENAI_API_KEY"],  
         api_version="2024-09-01-preview"
         )
         
