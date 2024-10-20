@@ -19,7 +19,7 @@ def save_video(file, file_name):
     return file_path
 
 # Streamlit frontend layout
-st.title("Video Processing App")
+st.title("AutoSync: Fix grammatical mistakes in your video")
 
 # Input: Video file upload
 uploaded_video = st.file_uploader("Upload a video file", type=["mp4", "mov", "avi"])
