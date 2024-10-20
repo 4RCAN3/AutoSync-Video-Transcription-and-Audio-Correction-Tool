@@ -49,7 +49,7 @@ class AIaudioGen:
         google_creds = st.secrets['GOOGLE_CREDENTIALS']['creds']
         credentials = service_account.Credentials.from_service_account_info(google_creds)
         self.stt_client = speech.SpeechClient(credentials=credentials)
-        self.voice_engine = pyttsx3.init('sapi5')
+        self.voice_engine = pyttsx3.init()
 
         if gender == 'Female':
             #sets the voice to female
